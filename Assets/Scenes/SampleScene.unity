@@ -1364,6 +1364,7 @@ MonoBehaviour:
   setUpCorrectly: 0
   currentBuildPos: {x: 0, y: 0, z: 0}
   buildModeActive: 0
+  canBuildHere: 0
 --- !u!4 &1426922037
 Transform:
   m_ObjectHideFlags: 0
@@ -1778,10 +1779,13 @@ MonoBehaviour:
   interactMask:
     serializedVersion: 2
     m_Bits: 1
+  currentCol: {fileID: 0}
+  lastCol: {fileID: 0}
+  currentTargeted: {fileID: 0}
   didHit: 0
   hitPos: {x: 0, y: 0, z: 0}
   mouseSens: 10
-  gpSens: 0
+  gpSens: 7
 --- !u!1 &1620205386
 GameObject:
   m_ObjectHideFlags: 0

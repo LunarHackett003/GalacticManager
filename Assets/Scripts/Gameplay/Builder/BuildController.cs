@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class BuildController : MonoBehaviour
 {
+
+    public static BuildController Instance;
+
     public BuildingData currentBuildingToPlace;
 
     public Transform buildingPreview;
@@ -21,8 +24,16 @@ public class BuildController : MonoBehaviour
             Debug.Log("correctly set up the game!");
             setUpCorrectly = true;
 
+            if(Instance == null)
+            {
+                Instance = this;
+            }
+            else
+            {
+                return;
+            }
 
-            InputManager.OnInteract += BuildInteracted;
+                InputManager.OnInteractPerform += BuildInteracted;
 
             if (currentBuildingToPlace)
             {
@@ -31,12 +42,16 @@ public class BuildController : MonoBehaviour
             }
         }
     }
+    private void OnDestroy()
+    {
+        InputManager.OnInteractPerform -= BuildInteracted;
+    }
 
     private void BuildInteracted(bool secondary, RaycastHit hit, Interactable interactableHit)
     {
         //We can probably ignore the hit interactable until we have destruction and stuff.
         Debug.Log("Tried to build!");
-        if (setUpCorrectly && buildModeActive && !secondary)
+        if (setUpCorrectly && canBuildHere && buildModeActive && !secondary)
         {
             GameObject newBuilding = Instantiate(currentBuildingToPlace.buildingObject.gameObject, currentBuildPos, Quaternion.identity);
         }

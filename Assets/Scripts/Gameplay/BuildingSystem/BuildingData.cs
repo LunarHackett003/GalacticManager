@@ -6,12 +6,12 @@ public class BuildingData : ScriptableObject
     /// <summary>
     /// The display name of this building
     /// </summary>
-    public string buildingDisplayName;
+    public string buildingDisplayName = "New Building";
     public Building buildingObject;
     /// <summary>
     /// How many grid tiles this building occupies. Must be an integer.
     /// </summary>
-    public Vector2 buildingSize;
+    public Vector2 buildingSize = Vector2.one;
     /// <summary>
     /// If true, this building will not be checked for collisions when trying to build it.
     /// </summary>
@@ -23,7 +23,7 @@ public class BuildingData : ScriptableObject
     /// <summary>
     /// a range between 0.01f and 1f, determines the snap increment. If set below 0.01f, it will not snap. The Y axis is ignored.
     /// </summary>
-    public Vector3 subGridSnapSize;
+    public Vector3 subGridSnapSize = Vector3.one * 0.25f;
     /// <summary>
     /// If false, this building will ignore snapping.
     /// </summary>

@@ -14,7 +14,9 @@ public class InputManager : MonoBehaviour
     /// <summary>
     /// 
     /// </summary>
-    public static Action<bool, RaycastHit, Interactable> OnInteract;
+    public static Action<bool, RaycastHit, Interactable> OnInteractPerform;
+    public static Action<bool, RaycastHit, Interactable> OnInteractStart;
+    public static Action<bool, RaycastHit, Interactable> OnInteractCancel;
 
     public Transform vCursor;
     public Vector2 vCursorOffset;
@@ -131,26 +133,25 @@ public class InputManager : MonoBehaviour
 
     public void OnPrimaryAction(InputAction.CallbackContext context)
     {
-
-        if (context.canceled)
-            return;
-
-            OnInteract?.Invoke(false, currentHit, currentTargeted);
-        if(currentTargeted != null)
-            currentTargeted.OnInteractPrimary();
+        if (context.performed)
+        {
+            OnInteractPerform?.Invoke(false, currentHit, currentTargeted);
+            if (currentTargeted != null)
+                currentTargeted.OnInteractPrimary();
+        }
     }
     public void OnSecondaryAction(InputAction.CallbackContext context)
     {
-        if (context.canceled)
-            return;
-
-        OnInteract?.Invoke(false, currentHit, currentTargeted);
-        if (currentTargeted != null)
-            currentTargeted.OnInteractSecondary();
+        if (context.performed)
+        {
+            OnInteractPerform?.Invoke(false, currentHit, currentTargeted);
+            if (currentTargeted != null)
+                currentTargeted.OnInteractSecondary();
+        }
     }
     public void OnCursorGamepad(InputAction.CallbackContext context)
     {
-        cursorMoveInput += context.ReadValue<Vector2>() * gpSens;
+        cursorMoveInput = context.ReadValue<Vector2>() * gpSens;
     }
     public void OnCursorMouse(InputAction.CallbackContext context)
     {
